@@ -1,0 +1,13 @@
+name: flush server cache
+on:
+  release:
+    types: [published]
+jobs:
+  deployment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Flush cache
+        uses: fjogeleit/http-request-action@master
+        with:
+          url: "hhttps://desktop-updates.getplayback.com?key=${{ secrets.HAZEL_API_KEY }}"
+          method: "POST"
