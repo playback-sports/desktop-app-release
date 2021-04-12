@@ -1,0 +1,16 @@
+name: flush release cache
+on:
+  release:
+    types: [published]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Flush Release Cache
+        id: flushRequest
+        uses: fjogeleit/http-request-action@master
+        with:
+          url: "https://desktop-updates.getplayback.com/flush?key=${{ secrets.HAZEL_API_KEY }}"
+          method: "POST"
+      - name: Show Response Code
+        run: echo ${{ steps.flushRequest.outputs.response.status }}
